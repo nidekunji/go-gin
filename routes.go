@@ -2,7 +2,7 @@
  * @Author: Aina
  * @Date: 2024-03-12 22:09:55
  * @LastEditors: Aina
- * @LastEditTime: 2024-03-12 22:15:29
+ * @LastEditTime: 2024-03-12 22:43:21
  * @FilePath: /ginEssential/routes.go
  * @Description:
  *
@@ -32,5 +32,6 @@ func CollectRoute(r *gin.Engine) *gin.Engine {
 	// 	log.Fatal("failed to close database")
 	// }
 	r.POST("/api/auth/register", controller.Register)
+	r.POST("/api/auth/login", controller.Login)
 	return r
 }
