@@ -2,7 +2,7 @@
  * @Author: Aina
  * @Date: 2024-03-12 22:09:55
  * @LastEditors: Aina
- * @LastEditTime: 2024-03-12 22:43:21
+ * @LastEditTime: 2024-03-13 21:31:52
  * @FilePath: /ginEssential/routes.go
  * @Description:
  *
@@ -12,6 +12,7 @@ package main
 
 import (
 	"ginEssential/controller"
+	"ginEssential/middleware"
 
 	"github.com/gin-gonic/gin"
 )
@@ -33,5 +34,6 @@ func CollectRoute(r *gin.Engine) *gin.Engine {
 	// }
 	r.POST("/api/auth/register", controller.Register)
 	r.POST("/api/auth/login", controller.Login)
+	r.GET("/api/auth/info", middleware.AuthMiddleware(), controller.Info)
 	return r
 }

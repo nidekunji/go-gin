@@ -2,7 +2,7 @@
  * @Author: Aina
  * @Date: 2024-03-12 21:25:44
  * @LastEditors: Aina
- * @LastEditTime: 2024-03-13 20:41:29
+ * @LastEditTime: 2024-03-13 21:22:11
  * @FilePath: /ginEssential/controller/UserController.go
  * @Description:
  *
@@ -14,6 +14,7 @@ import (
 	"ginEssential/common"
 	"ginEssential/model"
 	"ginEssential/util"
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -101,8 +102,19 @@ func Login(c *gin.Context) {
 		return
 	}
 	//发放token
-	token := "11"
+
+	token, err := common.ReleaseToken(user)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"code": 500, "msg": "系统异常"})
+		log.Printf("token generate error: %v", err)
+		return
+	}
+
 	//返回信息
 	c.JSON(200, gin.H{"code": 200, "data": gin.H{"token": token}, "msg": "登录成功"})
 
+}
+func Info(ctx *gin.Context) {
+	user, _ := ctx.Get("user")
+	ctx.JSON(http.StatusOK, gin.H{"code": 200, "data": gin.H{"user": user}})
 }
