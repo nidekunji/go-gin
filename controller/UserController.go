@@ -2,7 +2,7 @@
  * @Author: Aina
  * @Date: 2024-03-12 21:25:44
  * @LastEditors: Aina
- * @LastEditTime: 2024-03-12 22:40:14
+ * @LastEditTime: 2024-03-13 20:41:29
  * @FilePath: /ginEssential/controller/UserController.go
  * @Description:
  *
@@ -90,8 +90,8 @@ func Login(c *gin.Context) {
 	DB := common.GetDB()
 	var user model.User
 	DB.Where("telephone = ?", telephone).First(&user)
-	if user.ID != 0 {
-		c.JSON(http.StatusUnprocessableEntity, gin.H{"code": 422, "msg": "用户不存在"})
+	if user.ID == 0 {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{"code": 422, "msg": "用户不存在！"})
 		return
 	}
 
